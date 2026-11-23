@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Main — Snakes Adventure</title>
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/game.css" />
+</head>
+<body class="page-game">
+
+  <!-- ===== Bar atas ===== -->
+  <header class="navbar">
+    <div class="container navbar__inner">
+      <a class="brand" href="dashboard.html">
+        <img src="assets/images/favicon.png" alt="" />
+        <span>Snakes Adventure</span>
+      </a>
+      <div class="navbar__user">
+        <button class="btn btn--ghost btn--sm" id="soundBtn" type="button" aria-pressed="false" title="Suara">🔊</button>
+        <span class="user-pill">👤 <span id="navUsername">-</span></span>
+        <a class="btn btn--ghost btn--sm" href="dashboard.html">Dashboard</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="game container" id="game">
+
+    <!-- ===== Papan ===== -->
+    <section class="board-area" aria-label="Papan permainan">
+      <div class="board-frame">
+        <div class="board" id="board">
+          <div class="cells" id="cells"></div>
+          <svg class="sprites" id="sprites" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+          <div class="pieces" id="pieces"></div>
+          <span class="start-tag">START ▶</span>
+          <div class="card-popup hidden" id="cardPopup" role="status"></div>
+        </div>
+      </div>
+      <ul class="legend">
+        <li>🪜 Tangga: naik</li>
+        <li>🐍 Ular: turun</li>
+        <li>⭐ Kartu bonus</li>
+        <li>👑 Finish (petak 100)</li>
+      </ul>
+    </section>
+
+    <!-- ===== Kontrol: giliran + dadu ===== -->
+    <section class="controls card" aria-label="Kontrol dadu">
+      <div class="turn" aria-live="polite">
+        <span class="turn__dot" id="turnDot"></span>
+        <div>
+          <small class="text-muted">Giliran</small>
+          <strong id="turnName">-</strong>
+        </div>
+      </div>
+
+      <div class="dice-box">
+        <div class="dice" id="dice">
+          <img id="diceImg" src="assets/images/dice/dice-1.png" alt="Dadu" width="160" height="160" />
+        </div>
+        <button class="btn btn--gold btn--lg" id="rollBtn" type="button" disabled>🎲 Lempar Dadu</button>
+      </div>
+      <p class="controls__hint text-muted">Tekan <kbd>Spasi</kbd> untuk melempar</p>
+    </section>
+
+    <!-- ===== Daftar pemain ===== -->
+    <section class="players card" aria-label="Daftar pemain">
+      <h2>Pemain</h2>
+      <ul id="playerList" class="player-list"></ul>
+      <div class="side-actions">
+        <button class="btn btn--ghost btn--sm" id="restartBtn" type="button">↺ Ulangi</button>
+        <button class="btn btn--ghost btn--sm" id="menuBtn" type="button">☰ Ganti Mode</button>
+      </div>
+    </section>
+
+    <!-- ===== Log ===== -->
+    <section class="log-card card" aria-label="Catatan permainan">
+      <h2>Catatan</h2>
+      <ul id="log" class="log" aria-live="polite"></ul>
+    </section>
+  </main>
+
+  <!-- ===== Pemilihan mode ===== -->
+  <div class="modal-backdrop" id="setup" role="dialog" aria-modal="true" aria-labelledby="setupTitle">
+    <div class="modal card setup">
+      <h2 id="setupTitle">Pilih Mode Permainan</h2>
+
+      <div class="mode-grid">
+        <label class="mode-card">
+          <input type="radio" name="mode" value="ai" checked />
+          <span>
+            <strong>🤖 1 Player vs AI</strong>
+            <small>Lawan komputer yang bermain otomatis.</small>
+          </span>
+        </label>
+        <label class="mode-card">
+          <input type="radio" name="mode" value="local" />
+          <span>
+            <strong>👥 Multiplayer Lokal</strong>
+            <small>2–4 pemain bergantian di satu perangkat.</small>
+          </span>
+        </label>
+      </div>
+
+      <div id="localOptions" class="hidden">
+        <div class="field">
+          <label id="countLabel">Jumlah Pemain</label>
+          <div class="seg" id="countSeg" role="group" aria-labelledby="countLabel">
+            <button type="button" class="seg__btn is-on" data-count="2">2</button>
+            <button type="button" class="seg__btn" data-count="3">3</button>
+            <button type="button" class="seg__btn" data-count="4">4</button>
+          </div>
+        </div>
+        <div id="nameFields" class="name-fields"></div>
+      </div>
+
+      <p class="field__hint" id="setupNote"></p>
+
+      <div class="modal__actions">
+        <a class="btn btn--ghost" href="dashboard.html">Kembali</a>
+        <button class="btn btn--ghost hidden" id="resumeBtn" type="button">▶ Lanjutkan</button>
+        <button class="btn btn--gold" id="startBtn" type="button">Mulai Bermain</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/game-config.js"></script>
+  <script src="js/game-sound.js"></script>
+  <script src="js/game-board.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

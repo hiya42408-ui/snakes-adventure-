@@ -1,0 +1,307 @@
+/* ==========================================================
+   dashboard.css — gaya khusus halaman Dashboard
+   ========================================================== */
+
+.navbar__user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-pill {
+  max-width: 180px;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(247, 201, 72, 0.14);
+  border: var(--border);
+  font-weight: 800;
+  color: var(--gold-200);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dash {
+  display: grid;
+  gap: 2rem;
+  padding-top: 2rem;
+}
+
+.dash__title {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+/* ---------- Sambutan ---------- */
+.welcome {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  background:
+    radial-gradient(circle at 90% 20%, rgba(247, 201, 72, 0.18), transparent 50%),
+    linear-gradient(160deg, rgba(36, 69, 147, 0.9), rgba(10, 22, 52, 0.95));
+}
+
+.welcome h1 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  overflow-wrap: anywhere;
+}
+
+.welcome__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1.25rem;
+}
+
+.welcome__art {
+  width: clamp(120px, 20vw, 200px);
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.5));
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 0.6rem;
+  padding: 0.25rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(247, 201, 72, 0.14);
+  border: var(--border);
+  color: var(--gold-300);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ---------- Kartu statistik ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.stat {
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+  padding: 1.1rem 0.75rem;
+  text-align: center;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat--gold {
+  background: linear-gradient(160deg, rgba(247, 201, 72, 0.25), rgba(247, 201, 72, 0.06));
+  border-color: var(--gold-500);
+}
+
+.stat__icon {
+  font-size: 1.6rem;
+}
+
+.stat__value {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1.1;
+  color: var(--gold-300);
+}
+
+.stat__label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ---------- Grid riwayat + peringkat ---------- */
+.dash__grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card__head h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  color: var(--gold-300);
+}
+
+/* ---------- Tabel ---------- */
+.table-wrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.table th,
+.table td {
+  padding: 0.65rem 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  white-space: nowrap;
+}
+
+.table th {
+  color: var(--gold-200);
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.table .num {
+  text-align: right;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.badge--win {
+  background: rgba(74, 222, 128, 0.18);
+  color: #8ff0b3;
+}
+
+.badge--lose {
+  background: rgba(255, 107, 107, 0.18);
+  color: #ffadad;
+}
+
+.empty {
+  padding: 1.5rem 0.5rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* ---------- Papan peringkat ---------- */
+.leaderboard {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: rank;
+}
+
+.leaderboard li {
+  counter-increment: rank;
+  display: grid;
+  grid-template-columns: 2rem 1fr auto;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.leaderboard li::before {
+  content: counter(rank);
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--navy-600);
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.leaderboard li:nth-child(1)::before {
+  background: var(--gold-400);
+  color: var(--navy-950);
+}
+
+.leaderboard li:nth-child(2)::before {
+  background: #cfd6e6;
+  color: var(--navy-950);
+}
+
+.leaderboard li:nth-child(3)::before {
+  background: #d28a4c;
+  color: var(--navy-950);
+}
+
+.leaderboard li.is-me {
+  outline: 2px solid var(--gold-400);
+}
+
+.leaderboard .name {
+  overflow: hidden;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.leaderboard .score {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--gold-300);
+}
+
+/* ---------- Aturan ---------- */
+.rules h2 {
+  color: var(--gold-300);
+  font-size: 1.35rem;
+}
+
+.rules ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--muted);
+}
+
+.rules li {
+  margin-bottom: 0.4rem;
+}
+
+.rules strong {
+  color: var(--text);
+}
+
+/* ---------- Responsif ---------- */
+@media (max-width: 860px) {
+  .dash__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .welcome {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .welcome__art {
+    order: -1;
+    margin-inline: auto;
+    width: 130px;
+  }
+
+  .welcome__actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-pill {
+    max-width: 110px;
+  }
+
+  .brand span {
+    display: none;
+  }
+}

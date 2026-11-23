@@ -1,0 +1,17 @@
+/* ==========================================================
+   login.css — gaya khusus halaman Login
+   ========================================================== */
+
+/* Getar saat gagal */
+.is-shaking {
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  20%, 60% {
+    transform: translateX(-8px);
+  }
+  40%, 80% {
+    transform: translateX(8px);
+  }
+}

@@ -1,0 +1,117 @@
+/* ==========================================================
+   auth.css — kerangka layout bersama halaman Register & Login
+   ========================================================== */
+
+.page-auth {
+  display: grid;
+  place-items: center;
+  padding: 1.5rem 1rem;
+}
+
+.auth {
+  display: grid;
+  grid-template-columns: 0.9fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  width: min(980px, 100%);
+}
+
+/* ---------- Panel kiri ---------- */
+.auth__side {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.auth__side p {
+  max-width: 20rem;
+  margin: 0;
+}
+
+.auth__logo {
+  width: min(100%, 360px);
+  filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.5));
+  height: auto;
+  aspect-ratio: 920 / 949;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: auth-float 5s ease-in-out infinite;
+}
+
+.auth__deco {
+  position: absolute;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+}
+
+.auth__deco--snake {
+  left: -4%;
+  bottom: -6%;
+  width: 70px;
+  transform: rotate(10deg);
+}
+
+.auth__deco--ladder {
+  right: 2%;
+  bottom: -4%;
+  width: 46px;
+  transform: rotate(-12deg);
+}
+
+@keyframes auth-float {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+/* ---------- Panel form ---------- */
+.auth__panel {
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.auth__panel h1 {
+  font-size: clamp(1.9rem, 4vw, 2.4rem);
+  margin-bottom: 0.2em;
+}
+
+.auth__back {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.auth__switch {
+  margin: 1.4rem 0 0;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* ---------- Responsif ---------- */
+@media (max-width: 800px) {
+  .auth {
+    grid-template-columns: 1fr;
+  }
+
+  .auth__side {
+    order: -1;
+    padding: 0;
+  }
+
+  .auth__logo {
+    width: 180px;
+  }
+
+  .auth__side p,
+  .auth__deco {
+    display: none;
+  }
+}

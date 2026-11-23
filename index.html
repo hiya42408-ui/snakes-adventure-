@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Snakes Adventure — Gim Ular Tangga Online</title>
+  <meta name="description" content="Snakes Adventure: gim ular tangga berbasis web. Lawan komputer atau main bergantian bersama teman." />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="assets/images/logo.webp" type="image/webp" fetchpriority="high" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/home.css" />
+</head>
+<body class="page-home">
+
+  <!-- ===== Navbar ===== -->
+  <header class="navbar">
+    <div class="container navbar__inner">
+      <a class="brand" href="index.html">
+        <img src="assets/images/favicon.png" alt="" />
+        <span>Snakes Adventure</span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav-menu" id="navMenu" aria-label="Navigasi utama">
+        <a href="#cara-main">Cara Main</a>
+        <a href="#fitur">Fitur</a>
+        <div class="nav-actions" id="navActions">
+          <a class="btn btn--ghost btn--sm" href="login.html">Login</a>
+          <a class="btn btn--gold btn--sm" href="register.html">Register</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== Hero ===== -->
+    <section class="hero container">
+      <div class="hero__text">
+        <p class="eyebrow">Permainan ular tangga berbasis web</p>
+        <h1>Snakes <span class="text-gold">Adventure</span></h1>
+        <p class="hero__desc">
+          Lempar dadu, panjat tangga, dan hindari gigitan ular untuk mencapai petak ke-100 lebih dulu.
+          Lawan komputer atau tantang 2–4 temanmu secara bergantian di satu perangkat — langsung dari browser.
+        </p>
+
+        <div class="hero__cta" id="heroCta">
+          <a class="btn btn--gold btn--lg" href="register.html">Daftar Sekarang</a>
+          <a class="btn btn--ghost btn--lg" href="login.html">Login</a>
+        </div>
+
+        <ul class="chips" aria-label="Keunggulan">
+          <li>🎲 Dadu animasi</li>
+          <li>🤖 Lawan AI</li>
+          <li>👥 Multiplayer 2–4</li>
+          <li>💾 Progres tersimpan</li>
+        </ul>
+      </div>
+
+      <div class="hero__art" aria-hidden="true">
+        <div class="art-logo-wrap">
+          <picture>
+            <source srcset="assets/images/logo.webp" type="image/webp" />
+            <img class="art-logo" src="assets/images/logo.png" alt="" width="920" height="949" decoding="sync" fetchpriority="high" />
+          </picture>
+        </div>
+        <img class="art-dice art-dice--a" src="assets/images/dice/dice-5.png" alt="" />
+        <img class="art-dice art-dice--b" src="assets/images/dice/dice-3.png" alt="" />
+        <img class="art-snake" src="assets/images/snakes/snake-blue.png" alt="" />
+        <img class="art-ladder" src="assets/images/ladders/ladder-orange.png" alt="" />
+      </div>
+    </section>
+
+    <!-- ===== Cara Bermain ===== -->
+    <section class="section container reveal" id="cara-main">
+      <header class="section__head">
+        <h2>Cara <span class="text-gold">Bermain</span></h2>
+        <p class="text-muted">Aturannya sama seperti ular tangga klasik, dengan sedikit kejutan.</p>
+      </header>
+
+      <ol class="steps">
+        <li class="step">
+          <img src="assets/images/dice/dice-1.png" alt="Dadu 1" />
+          <h3>Daftar &amp; Login</h3>
+          <p>Buat akun, lalu masuk agar skor dan riwayat permainanmu tersimpan.</p>
+        </li>
+        <li class="step">
+          <img src="assets/images/dice/dice-2.png" alt="Dadu 2" />
+          <h3>Pilih Mode</h3>
+          <p>Main sendiri melawan komputer atau bergantian dengan 2–4 pemain.</p>
+        </li>
+        <li class="step">
+          <img src="assets/images/dice/dice-3.png" alt="Dadu 3" />
+          <h3>Lempar Dadu</h3>
+          <p>Bidak maju sesuai angka dadu. Dapat angka 6? Kamu boleh melempar lagi!</p>
+        </li>
+        <li class="step">
+          <img src="assets/images/dice/dice-4.png" alt="Dadu 4" />
+          <h3>Tangga &amp; Ular</h3>
+          <p>Tangga membawamu naik, ular menyeretmu turun. Waspadalah!</p>
+        </li>
+        <li class="step">
+          <img src="assets/images/dice/dice-5.png" alt="Dadu 5" />
+          <h3>Kartu Bonus</h3>
+          <p>Injak petak ⭐ untuk mengambil kartu: lempar lagi, maju, perisai, atau jebakan.</p>
+        </li>
+        <li class="step">
+          <img src="assets/images/dice/dice-6.png" alt="Dadu 6" />
+          <h3>Capai Petak 100</h3>
+          <p>Harus tepat di petak 100. Kelebihan angka akan membuatmu mundur.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ===== Fitur ===== -->
+    <section class="section container reveal" id="fitur">
+      <header class="section__head">
+        <h2>Fitur <span class="text-gold">Unggulan</span></h2>
+      </header>
+
+      <div class="features">
+        <article class="card feature">
+          <h3>🤖 Solo vs AI</h3>
+          <p>Uji keberuntunganmu melawan komputer yang giliran mainnya berjalan otomatis.</p>
+        </article>
+        <article class="card feature">
+          <h3>👥 Multiplayer Lokal</h3>
+          <p>Bermain bergantian dengan 2–4 pemain dalam satu halaman web yang sama.</p>
+        </article>
+        <article class="card feature">
+          <h3>🏆 Skor &amp; Statistik</h3>
+          <p>Pantau jumlah menang, kalah, high score, dan rekor lemparan tercepat.</p>
+        </article>
+        <article class="card feature">
+          <h3>💾 Tersimpan Otomatis</h3>
+          <p>Akun, sesi, dan permainan yang belum selesai disimpan di Local Storage browser.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><strong class="text-gold">Snakes Adventure</strong> — Project 4 Individu · X-RPL 2</p>
+      <p>Dikembangkan oleh Bhekti Febriyanto · <span id="year"></span></p>
+    </div>
+  </footer>
+
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

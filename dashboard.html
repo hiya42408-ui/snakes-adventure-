@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard — Snakes Adventure</title>
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body class="page-dashboard">
+
+  <!-- ===== Navbar ===== -->
+  <header class="navbar">
+    <div class="container navbar__inner">
+      <a class="brand" href="index.html">
+        <img src="assets/images/favicon.png" alt="" />
+        <span>Snakes Adventure</span>
+      </a>
+      <div class="navbar__user">
+        <span class="user-pill" title="Akun yang sedang login">👤 <span id="navUsername">-</span></span>
+        <button class="btn btn--ghost btn--sm" id="logoutBtn" type="button">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container dash">
+    <!-- ===== Sambutan ===== -->
+    <section class="welcome card">
+      <div class="welcome__text">
+        <p class="eyebrow">Dashboard Pemain</p>
+        <h1>Halo, <span class="text-gold" id="welcomeName">Pemain</span>! 👋</h1>
+        <p class="text-muted" id="welcomeMsg">Siap menaklukkan petak ke-100?</p>
+        <div class="welcome__actions">
+          <a class="btn btn--gold btn--lg" href="game.html">🎲 Mulai Bermain</a>
+          <a class="btn btn--ghost btn--lg hidden" id="resumeBtn" href="game.html?resume=1">▶ Lanjutkan Permainan</a>
+        </div>
+      </div>
+      <img class="welcome__art" src="assets/images/logo.png" alt="" aria-hidden="true" />
+    </section>
+
+    <!-- ===== Statistik ===== -->
+    <section aria-labelledby="statsTitle">
+      <h2 id="statsTitle" class="dash__title">Ringkasan <span class="text-gold">Statistik</span></h2>
+      <div class="stats">
+        <article class="stat">
+          <span class="stat__icon">🎮</span>
+          <strong class="stat__value" id="statPlayed">0</strong>
+          <span class="stat__label">Total Main</span>
+        </article>
+        <article class="stat">
+          <span class="stat__icon">🏅</span>
+          <strong class="stat__value" id="statWins">0</strong>
+          <span class="stat__label">Menang</span>
+        </article>
+        <article class="stat">
+          <span class="stat__icon">💥</span>
+          <strong class="stat__value" id="statLosses">0</strong>
+          <span class="stat__label">Kalah</span>
+        </article>
+        <article class="stat">
+          <span class="stat__icon">📈</span>
+          <strong class="stat__value" id="statRate">0%</strong>
+          <span class="stat__label">Win Rate</span>
+        </article>
+        <article class="stat stat--gold">
+          <span class="stat__icon">🏆</span>
+          <strong class="stat__value" id="statHigh">0</strong>
+          <span class="stat__label">High Score</span>
+        </article>
+        <article class="stat">
+          <span class="stat__icon">⚡</span>
+          <strong class="stat__value" id="statBest">-</strong>
+          <span class="stat__label">Menang Tercepat (lemparan)</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== Riwayat & Peringkat ===== -->
+    <div class="dash__grid">
+      <section class="card" aria-labelledby="historyTitle">
+        <div class="card__head">
+          <h2 id="historyTitle">Riwayat Permainan</h2>
+          <button class="btn btn--danger btn--sm" id="resetBtn" type="button">Reset Data</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table" id="historyTable">
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Mode</th>
+                <th>Hasil</th>
+                <th class="num">Lemparan</th>
+                <th class="num">Skor</th>
+              </tr>
+            </thead>
+            <tbody id="historyBody"></tbody>
+          </table>
+        </div>
+        <p class="empty hidden" id="historyEmpty">Belum ada permainan. Ayo mulai bermain pertamamu!</p>
+      </section>
+
+      <section class="card" aria-labelledby="boardTitle">
+        <div class="card__head">
+          <h2 id="boardTitle">Papan Peringkat</h2>
+        </div>
+        <ol class="leaderboard" id="leaderboard"></ol>
+        <p class="empty hidden" id="leaderboardEmpty">Belum ada data peringkat.</p>
+        <p class="field__hint">Diurutkan berdasarkan high score semua akun di browser ini.</p>
+      </section>
+    </div>
+
+    <!-- ===== Aturan singkat ===== -->
+    <section class="card rules">
+      <h2>Aturan Singkat</h2>
+      <ul>
+        <li>Lempar dadu dan maju sesuai angka. Dapat <strong>6</strong>, lempar sekali lagi.</li>
+        <li><strong>Tangga</strong> menaikkan, <strong>ular</strong> menurunkan posisimu.</li>
+        <li>Petak <strong>⭐</strong> memberi kartu bonus: lempar lagi, maju 3, perisai anti-ular, atau jebakan mundur 2.</li>
+        <li>Harus mendarat <strong>tepat di petak 100</strong>. Jika kelebihan, bidak memantul mundur.</li>
+        <li>Skor menang = 500 − (5 × jumlah lemparan), minimal 100. Kalah mendapat 10 poin.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><strong class="text-gold">Snakes Adventure</strong> — Project 4 Individu · X-RPL 2 · Bhekti Febriyanto</p>
+    </div>
+  </footer>
+
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

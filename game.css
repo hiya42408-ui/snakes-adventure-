@@ -1,0 +1,662 @@
+/* ==========================================================
+   game.css — gaya khusus halaman Game
+   Papan, bidak, dadu, panel pemain, log, dan modal.
+   ========================================================== */
+
+.navbar__user {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.user-pill {
+  max-width: 150px;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(247, 201, 72, 0.14);
+  border: var(--border);
+  font-weight: 800;
+  color: var(--gold-200);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- Tata letak utama ---------- */
+.game {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  grid-template-areas:
+    "board controls"
+    "board players"
+    "board log";
+  grid-template-rows: auto auto 1fr;
+  gap: 1.25rem;
+  padding-block: 1.5rem;
+  align-items: start;
+}
+
+.board-area { grid-area: board; }
+.controls { grid-area: controls; }
+.players { grid-area: players; }
+.log-card { grid-area: log; }
+
+.game h2 {
+  margin-bottom: 0.7rem;
+  font-size: 1.15rem;
+  color: var(--gold-300);
+}
+
+/* ---------- Papan ---------- */
+.board-frame {
+  width: min(100%, 720px);
+  margin-inline: auto;
+  padding: 12px 12px 54px; /* ruang bawah = area START */
+  border-radius: 22px;
+  background: linear-gradient(160deg, var(--navy-700), var(--navy-900));
+  border: 4px solid var(--gold-400);
+  box-shadow: var(--shadow), inset 0 0 0 3px var(--navy-950);
+}
+
+.board {
+  position: relative;
+  aspect-ratio: 1;
+  container-type: inline-size; /* agar ukuran teks mengikuti lebar papan (satuan cqw) */
+}
+
+.cells {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 0 2px var(--navy-950);
+}
+
+.cell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  box-shadow: inset 0 0 0 1px rgba(10, 22, 52, 0.22);
+  color: var(--navy-800);
+}
+
+/* Warna petak bergilir seperti pada logo */
+.tone-0 { background: #f9c9c0; }
+.tone-1 { background: #fbe7a3; }
+.tone-2 { background: #bfe0f0; }
+.tone-3 { background: #c9e8b8; }
+
+.cell .num {
+  position: absolute;
+  top: 6%;
+  left: 9%;
+  font-family: var(--font-display);
+  font-size: 2.1cqw;
+  font-weight: 600;
+  line-height: 1;
+  opacity: 0.75;
+}
+
+.cell .mark {
+  font-size: 3.6cqw;
+  line-height: 1;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25));
+}
+
+.cell.is-bonus {
+  background: radial-gradient(circle, #fff3b0, #f7c948);
+}
+
+.cell.is-finish {
+  background: radial-gradient(circle, #fff3b0, #e3ab2c);
+}
+
+/* ---------- Gambar ular & tangga ---------- */
+.sprites {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.sprite {
+  filter: drop-shadow(0.3px 0.6px 0.5px rgba(0, 0, 0, 0.4));
+}
+
+/* ---------- Bidak ---------- */
+.pieces {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.piece {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 5.2%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #fff9, transparent 45%), var(--c);
+  border: 0.45cqw solid #fff;
+  box-shadow: 0 0 0 0.35cqw var(--navy-950), 0 0.8cqw 1.2cqw rgba(0, 0, 0, 0.45);
+  color: var(--navy-950);
+  font-family: var(--font-display);
+  font-size: 2.4cqw;
+  font-weight: 700;
+  line-height: 1;
+  transform: translate(-50%, -50%);
+  transition: left 0.19s ease-out, top 0.19s ease-out;
+}
+
+.piece.is-active {
+  z-index: 3;
+  animation: bob 0.9s ease-in-out infinite;
+}
+
+.piece.is-sliding {
+  z-index: 4;
+  transition: left 0.95s cubic-bezier(0.45, 0, 0.3, 1), top 0.95s cubic-bezier(0.45, 0, 0.3, 1);
+}
+
+.piece.has-shield::after {
+  content: "🛡️";
+  position: absolute;
+  right: -45%;
+  top: -55%;
+  font-size: 2.6cqw;
+}
+
+.piece.is-pulse {
+  animation: pulse 0.45s ease-out;
+}
+
+@keyframes bob {
+  50% {
+    transform: translate(-50%, -62%);
+  }
+}
+
+@keyframes pulse {
+  40% {
+    transform: translate(-50%, -50%) scale(1.45);
+  }
+}
+
+.start-tag {
+  position: absolute;
+  left: 30%;
+  top: 104.6%;
+  transform: translateY(-50%);
+  padding: 0.2em 0.8em;
+  border-radius: 999px;
+  background: rgba(247, 201, 72, 0.16);
+  color: var(--gold-300);
+  font-family: var(--font-display);
+  font-size: 2.4cqw;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+/* ---------- Popup kartu bonus ---------- */
+.card-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 10;
+  width: 52%;
+  padding: 2.4cqw 3cqw;
+  border-radius: 3cqw;
+  background: linear-gradient(160deg, #fff6c9, #f7c948);
+  border: 0.7cqw solid var(--navy-900);
+  box-shadow: 0 2cqw 5cqw rgba(0, 0, 0, 0.55);
+  color: var(--navy-900);
+  text-align: center;
+  transform: translate(-50%, -50%);
+  animation: pop-in 0.3s cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+
+.card-popup .icon {
+  display: block;
+  font-size: 8cqw;
+  line-height: 1.1;
+}
+
+.card-popup strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 3.8cqw;
+}
+
+.card-popup span.desc {
+  font-size: 2.6cqw;
+  font-weight: 700;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.2rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+/* ---------- Kontrol & dadu ---------- */
+.turn {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.turn strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.turn__dot {
+  flex: none;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: var(--dot, var(--gold-400));
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 3px var(--navy-950);
+}
+
+.dice-box {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+}
+
+.dice img {
+  width: 96px;
+  height: 96px;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.5));
+}
+
+.dice.is-rolling img {
+  animation: dice-roll 0.35s linear infinite;
+}
+
+@keyframes dice-roll {
+  0% { transform: rotate(0) translateY(0); }
+  25% { transform: rotate(90deg) translateY(-8px); }
+  50% { transform: rotate(180deg) translateY(0); }
+  75% { transform: rotate(270deg) translateY(-8px); }
+  100% { transform: rotate(360deg) translateY(0); }
+}
+
+.controls__hint {
+  margin: 0.9rem 0 0;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+kbd {
+  padding: 0.1rem 0.5rem;
+  border-radius: 6px;
+  background: var(--navy-700);
+  border: 1px solid var(--navy-600);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+}
+
+/* ---------- Daftar pemain ---------- */
+.player-list {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.player {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid transparent;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.player.is-current {
+  background: rgba(247, 201, 72, 0.14);
+  border-color: var(--gold-400);
+}
+
+.player__token {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--c);
+  border: 2px solid #fff;
+  color: var(--navy-950);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.player__name {
+  overflow: hidden;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player__name small {
+  display: block;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.player__pos {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--gold-300);
+  white-space: nowrap;
+}
+
+.side-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+/* ---------- Log ---------- */
+.log {
+  display: grid;
+  gap: 0.4rem;
+  max-height: 260px;
+  margin: 0;
+  padding: 0 0.3rem 0 0;
+  overflow-y: auto;
+  list-style: none;
+  font-size: 0.92rem;
+}
+
+.log li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  color: var(--muted);
+}
+
+.log li:first-child {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.log .dot {
+  flex: none;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-top: 0.3rem;
+  border-radius: 50%;
+  background: var(--c);
+}
+
+/* ---------- Modal pilih mode ---------- */
+.setup {
+  width: min(600px, 100%);
+}
+
+.mode-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+  margin: 1rem 0;
+}
+
+.mode-card {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+.mode-card input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+}
+
+.mode-card span {
+  display: grid;
+  gap: 0.25rem;
+  height: 100%;
+  padding: 1rem;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.14);
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+}
+
+.mode-card strong {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+}
+
+.mode-card small {
+  color: var(--muted);
+}
+
+.mode-card:hover span {
+  transform: translateY(-2px);
+}
+
+.mode-card input:checked + span {
+  background: rgba(247, 201, 72, 0.14);
+  border-color: var(--gold-400);
+}
+
+.mode-card input:focus-visible + span {
+  outline: 3px solid var(--gold-400);
+  outline-offset: 2px;
+}
+
+.seg {
+  display: inline-flex;
+  padding: 4px;
+  gap: 4px;
+  border-radius: 999px;
+  background: rgba(6, 13, 32, 0.65);
+  border: 2px solid rgba(169, 182, 217, 0.3);
+}
+
+.seg__btn {
+  min-width: 3rem;
+  padding: 0.35rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.seg__btn.is-on {
+  background: var(--gold-400);
+  color: var(--navy-950);
+}
+
+.name-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+}
+
+.name-fields .field {
+  margin: 0;
+}
+
+.name-fields .input {
+  padding: 0.6rem 0.8rem;
+}
+
+/* ---------- Modal pemenang ---------- */
+.winner {
+  text-align: center;
+}
+
+.winner__crown {
+  font-size: 4rem;
+  line-height: 1;
+  animation: bob-crown 1.2s ease-in-out infinite;
+}
+
+@keyframes bob-crown {
+  50% {
+    transform: translateY(-8px) rotate(6deg);
+  }
+}
+
+.winner h2 {
+  font-size: 1.9rem;
+  overflow-wrap: anywhere;
+}
+
+.winner__stats {
+  display: grid;
+  gap: 0.35rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+}
+
+.winner__stats strong {
+  color: var(--gold-300);
+}
+
+.winner .modal__actions {
+  justify-content: center;
+}
+
+.confetti {
+  position: fixed;
+  top: -20px;
+  z-index: 150;
+  width: 10px;
+  height: 16px;
+  border-radius: 2px;
+  pointer-events: none;
+  animation: confetti-fall linear forwards;
+}
+
+@keyframes confetti-fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0.8;
+  }
+}
+
+/* ---------- Responsif ---------- */
+@media (max-width: 980px) {
+  .game {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "board"
+      "controls"
+      "players"
+      "log";
+    grid-template-rows: none;
+    padding-bottom: 0;
+  }
+
+  /* Kontrol menempel di bawah layar agar dadu selalu terjangkau */
+  .controls {
+    position: sticky;
+    bottom: 0;
+    z-index: 30;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    background: rgba(10, 22, 52, 0.96);
+  }
+
+  .turn {
+    margin: 0;
+  }
+
+  .dice-box {
+    grid-template-columns: auto auto;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .dice img {
+    width: 56px;
+    height: 56px;
+  }
+
+  .controls__hint {
+    display: none;
+  }
+
+  .btn--lg {
+    padding: 0.7rem 1.2rem;
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .brand {
+    font-size: 1.05rem;
+  }
+
+  .brand img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .board-frame {
+    padding: 7px 7px 38px;
+    border-width: 3px;
+  }
+
+  .mode-grid,
+  .name-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .user-pill {
+    display: none;
+  }
+
+  .controls {
+    grid-template-columns: 1fr;
+  }
+
+  .dice-box {
+    justify-content: space-between;
+  }
+
+  .turn strong {
+    font-size: 1.1rem;
+  }
+}
